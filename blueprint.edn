@@ -1,0 +1,12 @@
+{:itonami.blueprint/id "cloud-itonami-isic-6391"
+ :itonami.blueprint/name "Community News Wire Service"
+ :itonami.blueprint/isic-rev5 "6391"
+ :itonami.blueprint/domain :media/news-agency-wire-service
+ :itonami.blueprint/license "AGPL-3.0-or-later"
+ :itonami.blueprint/social-impact [:public-information-access :independent-media-diversity :press-freedom :civic-literacy]
+ :itonami.blueprint/governor :wire-governor
+ :itonami.blueprint/robotics false
+ :itonami.blueprint/required-technologies [:identity :forms :dmn :audit-ledger]
+ :itonami.blueprint/optional-technologies [:bpmn]
+ :itonami.blueprint/status :public-oss
+ :itonami.blueprint/maturity :implemented}
