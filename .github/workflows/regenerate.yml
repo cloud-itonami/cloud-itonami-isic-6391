@@ -1,0 +1,57 @@
+# Nightly regeneration -- rebuild docs/samples/operator-console.html
+# through the REAL actor (newswire.render-html, driving
+# newswire.actor/build-graph -> newswire.governor -> newswire.store) and
+# commit only when the rendered console actually changed. Closes
+# flagship checklist item 2+4 (ADR-2607189300 at com-junkawasaki/root,
+# Wave5 rollout iter24).
+#
+# JVM Clojure (clojure -M), not nbb -- this repo's whole actor stack is
+# JVM-only .cljc. UNLIKE the isic-6820/isic-851 siblings this workflow
+# was adapted from, this repo's deps.edn pins langgraph via a public
+# `:git/sha` coordinate (no `:local/root` monorepo override, no `:dev`
+# alias -- see this repo's own deps.edn comment: the same standalone
+# shape `cloud-itonami-isco-3521` uses), so `clojure` resolves it
+# straight from GitHub (~/.gitlibs) -- no extra sibling-repo checkout
+# steps needed here, and the render step is `clojure -M:render-html`
+# (not `:dev:render-html`). Reusable template + adaptation notes:
+# com-junkawasaki/root 90-docs/business/scripts/
+# flagship-generator-template/.
+#
+# Fork note: this runs on the default GITHUB_TOKEN (contents: write).
+# If your org disables Actions, run `clojure -M:render-html` from any
+# scheduler (see docs/operator-quickstart.md if present).
+name: regenerate-console
+on:
+  schedule:
+    - cron: '37 3 * * *'   # off-peak UTC nightly slot (off-minute on purpose)
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: "21" }
+      - uses: DeLaGuardo/setup-clojure@13.0
+        with: { cli: latest }
+      - name: regenerate through the real actor
+        run: clojure -M:render-html
+      - name: verify (real output, not scaffolding)
+        run: |
+          grep -q 'newswire.render-html' docs/samples/operator-console.html
+          grep -q '<tbody>' docs/samples/operator-console.html
+          test "$(wc -l < docs/samples/operator-console.html)" -gt 30
+          echo "operator console sanity ok"
+      - name: commit when changed
+        run: |
+          if ! git diff --quiet docs/; then
+            git config user.name "regenerate-console[bot]"
+            git config user.email "noreply@github.com"
+            git add docs/
+            git commit -m "chore(console): nightly regeneration through the real actor"
+            git push
+          else
+            echo "console unchanged"
+          fi
