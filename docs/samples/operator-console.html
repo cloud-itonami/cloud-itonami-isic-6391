@@ -1,0 +1,70 @@
+<html><head><meta charset="utf-8"><title>cloud-itonami-isic-6391 &middot; news-agency wire-service</title><style>
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.ok { color: #137a3f; }
+body { font-family: system-ui,-apple-system,sans-serif; margin: 0; color: #1a1a1a; background: #fafafa; }
+header.bar { display: flex; align-items: center; gap: 12px; padding: 12px 20px; background: #fff; border-bottom: 1px solid #e5e5e5; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #f0f0f0; }
+h2 { margin-top: 0; font-size: 15px; }
+.warn { color: #b25c00; background: #fff8e1; padding: 2px 6px; border-radius: 4px; }
+main { max-width: 980px; margin: 24px auto; padding: 0 20px; }
+header.bar h1 { font-size: 18px; margin: 0; font-weight: 600; }
+.muted { color: #888; font-size: 13px; }
+.critical { color: #fff; background: #b3261e; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+.card { background: #fff; border: 1px solid #e5e5e5; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+.err { color: #b3261e; background: #fbe9e7; padding: 2px 6px; border-radius: 4px; }
+th { font-weight: 600; color: #555; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+header.bar .badge { margin-left: auto; font-size: 12px; color: #666; }
+code { font-size: 12px; background: #f4f4f4; padding: 1px 4px; border-radius: 3px; }
+</style></head><body>
+<header class="bar">
+  <h1>News-agency wire-service (ISIC 6391) — Operator Console</h1>
+  <span class="badge">read-only sample · governor-gated · the actor never pushes directly to the wire</span>
+</header>
+<main>
+  <section class="card">
+    <h2>Stories (client bureau-1)</h2>
+    <p class="muted">Demo snapshot — build-time-generated from <code>newswire.store</code> via <code>newswire.render-html</code> (<code>clojure -M:render-html</code>), regenerated nightly.</p>
+    <table>
+      <thead><tr><th>Story</th><th>Headline</th><th>Embargo until</th><th>Legal sensitivity</th><th>Distribution</th><th>Last op status</th></tr></thead>
+      <tbody>
+        <tr><td>story-1</td><td>Clean, unembargoed, non-sensitive story</td><td><span class="muted">none</span></td><td><span class="ok">clear</span></td><td><span class="ok">distributed</span></td><td><span class="critical">HARD hold &middot; already-distributed</span></td></tr>
+        <tr><td>story-2</td><td>Story still under embargo</td><td>2999-01-01T00:00:00Z</td><td><span class="ok">clear</span></td><td><span class="muted">not yet</span></td><td><span class="critical">HARD hold &middot; embargo-violated</span></td></tr>
+        <tr><td>story-3</td><td>Story touching ongoing litigation</td><td><span class="muted">none</span></td><td><span class="warn">flagged</span></td><td><span class="muted">not yet</span></td><td><span class="critical">HARD hold &middot; source-not-verified</span></td></tr>
+        <tr><td>story-4</td><td>Already-distributed story</td><td><span class="muted">none</span></td><td><span class="ok">clear</span></td><td><span class="ok">distributed</span></td><td><span class="muted">no activity</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="card">
+    <h2>Action gate (Wire Governor)</h2>
+    <p class="muted">HARD holds cannot be overridden. Sourcing completeness and the embargo instant are independently recomputed from the story's own ground-truth fields, never trusted from the advisor's proposal alone.</p>
+    <table>
+      <thead><tr><th>Op</th><th>Gate</th></tr></thead>
+      <tbody>
+        <tr><td><code>:story/intake</code></td><td><span class="ok">phase-3 auto-commit when clean</span></td></tr>
+        <tr><td><code>:source/verify</code></td><td><span class="warn">ALWAYS human approval &middot; not in any phase's auto set</span></td></tr>
+        <tr><td><code>:sensitivity/screen</code></td><td><span class="warn">ALWAYS human approval &middot; not in any phase's auto set</span></td></tr>
+        <tr><td><code>:actuation/distribute</code></td><td><span class="ok">phase-3 auto-commit when clean, sourced, unembargoed, non-sensitive</span></td></tr>
+        <tr><td><code>:actuation/issue-correction</code></td><td><span class="warn">ALWAYS human approval &middot; never auto, any phase</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="card">
+    <h2>Audit ledger (this run)</h2>
+    <p class="muted">Append-only decision-fact log — every proposal, hold and commit this scenario produced.</p>
+    <table>
+      <thead><tr><th>Fact</th><th>Op</th><th>Subject</th><th>Basis</th></tr></thead>
+      <tbody>
+        <tr><td>committed</td><td><code>intake</code></td><td>story-1</td><td>story-id, headline</td></tr>
+        <tr><td>committed</td><td><code>verify</code></td><td>story-1</td><td>on-the-record spokesperson</td></tr>
+        <tr><td>committed</td><td><code>screen</code></td><td>story-1</td><td>sensitivity-check</td></tr>
+        <tr><td>committed</td><td><code>distribute</code></td><td>story-1</td><td>story-1</td></tr>
+        <tr><td>committed</td><td><code>issue-correction</code></td><td>story-1</td><td>story-1</td></tr>
+        <tr><td>committed</td><td><code>verify</code></td><td>story-2</td><td>wire copy</td></tr>
+        <tr><td>governor-hold</td><td><code>distribute</code></td><td>story-2</td><td>embargo-violated</td></tr>
+        <tr><td>governor-hold</td><td><code>distribute</code></td><td>story-3</td><td>source-not-verified</td></tr>
+        <tr><td>governor-hold</td><td><code>distribute</code></td><td>story-1</td><td>already-distributed</td></tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+</body></html>
