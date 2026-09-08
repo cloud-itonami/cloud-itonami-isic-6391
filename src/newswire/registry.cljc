@@ -28,7 +28,7 @@
   `:actuation/issue-correction`, always human-gated for correction/
   retraction and gated on the embargo/sourcing/sensitivity checks
   above for distribution -- see README `Actuation`)."
-  (:require [clojure.string :as str]))
+  (:require [kotoba.lang.text :as str]))
 
 (defn- unsigned-certificate
   "Every certificate this actor produces is UNSIGNED -- signature is the
@@ -71,7 +71,7 @@
     (throw (ex-info "distribution: client_id required" {})))
   (when (< sequence 0)
     (throw (ex-info "distribution: sequence must be >= 0" {})))
-  (let [distribution-number (str (str/upper-case client-id) "-DIST-" (zero-pad sequence 6))
+  (let [distribution-number (str (str/upper client-id) "-DIST-" (zero-pad sequence 6))
         record {"record_id" distribution-number
                 "kind" "distribution-draft"
                 "story_id" story-id
@@ -102,7 +102,7 @@
     (throw (ex-info "correction: sequence must be >= 0" {})))
   (when-not (contains? #{:correction :retraction} kind)
     (throw (ex-info "correction: kind must be :correction or :retraction" {:kind kind})))
-  (let [correction-number (str (str/upper-case client-id) "-CORR-" (zero-pad sequence 6))
+  (let [correction-number (str (str/upper client-id) "-CORR-" (zero-pad sequence 6))
         record {"record_id" correction-number
                 "kind" (name kind)
                 "story_id" story-id
