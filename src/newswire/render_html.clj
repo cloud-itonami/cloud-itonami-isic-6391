@@ -32,7 +32,7 @@
 
   Usage: `clojure -M:render-html [out-file]`
   (default `docs/samples/operator-console.html`)."
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [newswire.store :as store]
             [newswire.actor :as actor]))
 
