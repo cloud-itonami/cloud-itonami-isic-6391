@@ -6,9 +6,9 @@ governor policy tests, documentation and operator model.
 ## Development
 
 ```bash
-clojure -M:test
-clojure -M:lint
-clojure -M:run     # walk one clean lifecycle + five HARD-hold cases through the actor
+kbb -M:test
+kbb -M:lint
+kbb -M:run     # walk one clean lifecycle + five HARD-hold cases through the actor
 ```
 
 ## Rules
