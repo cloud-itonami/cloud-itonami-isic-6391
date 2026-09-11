@@ -139,10 +139,10 @@ auto-commit for distribution only -- never for correction/retraction.
 ## Run
 
 ```bash
-clojure -M:run     # walk one clean lifecycle (intake -> verify -> screen -> auto-distribute
+kbb -M:run     # walk one clean lifecycle (intake -> verify -> screen -> auto-distribute
                     # -> correction -> retraction) + five HARD-hold cases through the actor
-clojure -M:test    # governor contract · phase invariants · registry ground-truth checks · actor lifecycle
-clojure -M:lint     # clj-kondo (errors fail; CI mirrors this)
+kbb -M:test    # governor contract · phase invariants · registry ground-truth checks · actor lifecycle
+kbb -M:lint     # clj-kondo (errors fail; CI mirrors this)
 ```
 
 ## Open business

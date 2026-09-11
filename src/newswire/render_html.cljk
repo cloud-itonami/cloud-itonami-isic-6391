@@ -21,7 +21,7 @@
 
   TRAP CHECK (per `90-docs/business/cloud-itonami-flagship-generator-
   template.edn`'s documented isic-851 trap): this repo's own
-  `newswire.sim` (`clojure -M:run`) was actually run before writing this
+  `newswire.sim` (`kbb -M:run`) was actually run before writing this
   scenario, not assumed correct. Unlike isic-851's broken sim, this
   repo's `newswire.sim` drives real seeded ids (`story-1`..`story-4`
   under `bureau-1`) and produces the exact dispositions its own comments
@@ -30,7 +30,7 @@
   to a representative subset, same discipline as the isic-6820 realty
   render_html.clj).
 
-  Usage: `clojure -M:render-html [out-file]`
+  Usage: `kbb -M:render-html [out-file]`
   (default `docs/samples/operator-console.html`)."
   (:require [kotoba.lang.text :as str]
             [newswire.store :as store]
@@ -172,7 +172,7 @@
      "<main>\n"
      "  <section class=\"card\">\n"
      "    <h2>Stories (client bureau-1)</h2>\n"
-     "    <p class=\"muted\">Demo snapshot — build-time-generated from <code>newswire.store</code> via <code>newswire.render-html</code> (<code>clojure -M:render-html</code>), regenerated nightly.</p>\n"
+     "    <p class=\"muted\">Demo snapshot — build-time-generated from <code>newswire.store</code> via <code>newswire.render-html</code> (<code>kbb -M:render-html</code>), regenerated nightly.</p>\n"
      "    <table>\n"
      "      <thead><tr><th>Story</th><th>Headline</th><th>Embargo until</th><th>Legal sensitivity</th><th>Distribution</th><th>Last op status</th></tr></thead>\n"
      "      <tbody>\n"

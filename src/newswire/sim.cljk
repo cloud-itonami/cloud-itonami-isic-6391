@@ -1,5 +1,5 @@
 (ns newswire.sim
-  "Demo driver -- `clojure -M:dev:run`. Walks a clean story through
+  "Demo driver -- `kbb -M:dev:run`. Walks a clean story through
   intake -> source verification -> sensitivity screening -> distribution
   (auto-commits at phase 3: clean, sourced, unembargoed, non-sensitive)
   -> a correction, then a retraction (both ALWAYS escalate -- human
