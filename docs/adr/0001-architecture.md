@@ -105,7 +105,7 @@ NOT gated behind a prior committed `:sensitivity/screen` record. An
 earlier draft of this design checked only the COMMITTED screen verdict
 (mirroring `satcom.governor/coordination-dispute-unresolved-
 violations`'s `hit-on-file?` pattern too literally) -- caught by this
-repo's own `test/newswire/actor_test.clj` `sensitive-story-
+repo's own `test/newswire/actor_test.cljk` `sensitive-story-
 distribution-escalates-rather-than-auto-publishing`, which failed
 because a bureau that never ran `:sensitivity/screen` on a story would
 otherwise auto-publish a legally-sensitive story cleanly with no
@@ -143,7 +143,7 @@ never adds `:actuation/issue-correction` to any phase's `:auto` set).
 Grounded in the task's own explicit framing: "issuing a correction or
 retraction for a previously-distributed story is a distinct, auditable,
 always-human-signoff action (the actor never silently overwrites what
-it already distributed)." `test/newswire/phase_test.clj`'s
+it already distributed)." `test/newswire/phase_test.cljk`'s
 `issue-correction-never-auto-at-any-phase`/`distribute-is-auto-
 eligible-only-at-phase-3` assert this asymmetry directly.
 
