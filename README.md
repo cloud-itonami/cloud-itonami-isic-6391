@@ -102,7 +102,7 @@ Two independent layers enforce the correction/retraction exclusion
 (`newswire.governor`'s `high-stakes` set and `newswire.phase`'s phase
 table, which never puts `:actuation/issue-correction` in any phase's
 `:auto` set) -- see `newswire.phase`'s docstring and
-`test/newswire/phase_test.clj`'s
+`test/newswire/phase_test.cljk`'s
 `issue-correction-never-auto-at-any-phase`. See this actor's own
 `docs/adr/0001-architecture.md` for the full design rationale.
 
@@ -167,13 +167,13 @@ full architecture and decision record.
 
 | File | Role |
 |---|---|
-| `src/newswire/store.cljc` | **Store** protocol -- `MemStore` (no `DatomicStore`, the same scope `cloud-itonami-isco-3521`'s `media.store` keeps) + append-only audit ledger + separate distribution/correction history |
-| `src/newswire/registry.cljc` | Distribution + correction/retraction draft records, plus `embargo-violated?` (a genuinely NEW temporal check kind for this fleet -- see its own docstring) |
-| `src/newswire/advisor.cljc` | **Wire Advisor** -- `mock-advisor` \| `llm-advisor`; intake/sourcing/screening/distribution/correction proposals, `:effect` ALWAYS the literal `:propose` |
-| `src/newswire/governor.cljc` | **Wire Governor** -- HARD checks (client provenance · no-actuation · unknown/foreign story · source not verified · embargo violated, ground-truth recompute) + already-distributed/-retracted guards + SOFT (legally-sensitive · confidence/actuation gate) |
-| `src/newswire/phase.cljc` | **Phase 0→3** -- read-only → assisted intake → assisted verify → supervised (this fleet's FIRST asymmetric dual-actuation phase table: distribution may reach auto at phase 3, correction/retraction never does, any phase) |
-| `src/newswire/actor.cljc` | **WireActor** -- langgraph-clj-family StateGraph |
-| `src/newswire/sim.cljc` | demo driver |
+| `src/newswire/store.cljk` | **Store** protocol -- `MemStore` (no `DatomicStore`, the same scope `cloud-itonami-isco-3521`'s `media.store` keeps) + append-only audit ledger + separate distribution/correction history |
+| `src/newswire/registry.cljk` | Distribution + correction/retraction draft records, plus `embargo-violated?` (a genuinely NEW temporal check kind for this fleet -- see its own docstring) |
+| `src/newswire/advisor.cljk` | **Wire Advisor** -- `mock-advisor` \| `llm-advisor`; intake/sourcing/screening/distribution/correction proposals, `:effect` ALWAYS the literal `:propose` |
+| `src/newswire/governor.cljk` | **Wire Governor** -- HARD checks (client provenance · no-actuation · unknown/foreign story · source not verified · embargo violated, ground-truth recompute) + already-distributed/-retracted guards + SOFT (legally-sensitive · confidence/actuation gate) |
+| `src/newswire/phase.cljk` | **Phase 0→3** -- read-only → assisted intake → assisted verify → supervised (this fleet's FIRST asymmetric dual-actuation phase table: distribution may reach auto at phase 3, correction/retraction never does, any phase) |
+| `src/newswire/actor.cljk` | **WireActor** -- langgraph-clj-family StateGraph |
+| `src/newswire/sim.cljk` | demo driver |
 | `test/newswire/*_test.clj` | governor contract · phase invariants · registry ground-truth checks · actor lifecycle |
 
 ## Business-process coverage (honest)
