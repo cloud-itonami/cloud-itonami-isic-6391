@@ -1,5 +1,5 @@
 (ns newswire.registry-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [newswire.registry :as registry]))
 
 (deftest embargo-violated-is-a-pure-ground-truth-temporal-check

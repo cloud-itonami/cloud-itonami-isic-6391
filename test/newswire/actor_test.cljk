@@ -1,5 +1,5 @@
 (ns newswire.actor-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [newswire.actor :as actor]
             [newswire.store :as store]))
 
