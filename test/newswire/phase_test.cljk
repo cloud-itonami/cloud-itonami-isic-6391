@@ -1,5 +1,5 @@
 (ns newswire.phase-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [newswire.phase :as phase]))
 
 (deftest issue-correction-never-auto-at-any-phase

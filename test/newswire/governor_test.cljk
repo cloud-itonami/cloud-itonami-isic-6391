@@ -1,5 +1,5 @@
 (ns newswire.governor-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [newswire.store :as store]
             [newswire.governor :as governor]))
 
