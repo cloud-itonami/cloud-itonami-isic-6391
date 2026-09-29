@@ -1,6 +1,6 @@
 (ns newswire.store
   "SSoT for the ISIC 6391 news-agency wire-service actor (itonami actor
-  pattern, ADR-2607011000 / CLAUDE.md Actors section), behind a `Store`
+  pattern, ADR-2607011000 / AGENTS.md Actors section), behind a `Store`
   protocol so the backend is a swap, not a rewrite -- the same seam
   every `cloud-itonami-isic-*`/`cloud-itonami-isco-*` actor in this
   fleet uses. Modeled most closely on `cloud-itonami-isco-3521`'s
